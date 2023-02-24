@@ -40,6 +40,11 @@ fn get_edit_dist(p1: String, p2: String) -> String {
     format!("{}", edit_dist(&p1, &p2))
 }
 
+#[get("/echo/<message>")]
+fn echo(message: String) -> String {
+    message
+}
+
 #[get("/")]
 fn root() -> &'static str {
     "Shane was here"
@@ -51,6 +56,6 @@ fn root() -> &'static str {
 fn rocket() -> Rocket<Build> {
     rocket::build()
         .mount("/files", routes![files])
-        .mount("/", routes![wait, root, get_edit_dist, edit_dist_from_json])
+        .mount("/", routes![wait, root, echo, get_edit_dist, edit_dist_from_json])
 }
 
