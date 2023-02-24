@@ -1,11 +1,28 @@
 use rocket::tokio::time::{sleep, Duration};
 use std::io;
 use rocket::tokio::task::spawn_blocking;
+use rocket::serde::{Deserialize, json::Json};
 
 use std::path::{Path, PathBuf};
 use rocket::fs::NamedFile;
 
+mod edit_dist;
+
+use crate::edit_dist::edit_dist;
+
 #[macro_use] extern crate rocket;
+
+#[derive(Deserialize)]
+#[serde(crate = "rocket::serde")]
+struct PhrasePair {
+    phrase1: String,
+    phrase2: String,
+}
+
+#[post("/shane", data = "<task>")]
+fn edit_dist_from_json(task: Json<PhrasePair>) -> String {
+    format!("{}", edit_dist(&task.phrase1, &task.phrase2))
+}
 
 #[get("/")]
 fn root() -> &'static str {
@@ -45,12 +62,17 @@ fn hello(name: &str, age: u8, cool: bool) -> String {
     }
 }
 
+#[get("/shane/<p1>/<p2>")]
+fn get_edit_dist(p1: String, p2: String) -> String {
+    format!("{}", edit_dist(&p1, &p2))
+}
+
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     let _rocket = rocket::build()
         .mount("/hello", routes![world, wait, hello])
         .mount("/files", routes![files])
-        .mount("/", routes![root, blocking_task])
+        .mount("/", routes![root, get_edit_dist, edit_dist_from_json, blocking_task])
         .launch()
         .await?;
 
