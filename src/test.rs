@@ -31,7 +31,7 @@ fn get_wait_time() {
     let seconds: u8 = 1;
     let message: String = format!("Waited {} seconds", seconds);
     let response = client
-        .get(format!("/hello/wait/{}", seconds))
+        .get(format!("/wait/{}", seconds))
         .dispatch();
     assert_eq!(response.status(), Status::Ok);
     assert_eq!(response.into_string().unwrap(), message);
