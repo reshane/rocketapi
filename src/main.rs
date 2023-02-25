@@ -50,12 +50,17 @@ fn root() -> &'static str {
     "Shane was here"
 }
 
+#[get("/whoami")]
+fn whoami() -> &'static str {
+    "a nonce"
+}
+
 #[cfg(test)] mod test;
 
 #[launch]
 fn rocket() -> Rocket<Build> {
     rocket::build()
         .mount("/files", routes![files])
-        .mount("/", routes![wait, root, echo, get_edit_dist, edit_dist_from_json])
+        .mount("/", routes![whoami, wait, root, echo, get_edit_dist, edit_dist_from_json])
 }
 
