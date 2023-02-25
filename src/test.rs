@@ -2,6 +2,7 @@
 use super::rocket;
 use rocket::local::blocking::Client;
 use rocket::http::Status;
+use std::string::String;
 
 use crate::edit_dist::edit_dist;
 
@@ -36,4 +37,15 @@ fn get_wait_time() {
     assert_eq!(response.status(), Status::Ok);
     assert_eq!(response.into_string().unwrap(), message);
 
+}
+
+#[test]
+fn get_message() {
+    let client = Client::tracked(rocket()).expect("valid rocket instance");
+    let message: String = (&"ShaneWasHere").to_string();
+    let response = client
+        .get(format!("/echo/{}", message.clone()))
+        .dispatch();
+    assert_eq!(response.status(), Status::Ok);
+    assert_eq!(response.into_string().unwrap(), message);
 }
