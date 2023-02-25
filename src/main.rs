@@ -51,8 +51,8 @@ fn root() -> &'static str {
 }
 
 #[get("/whoami")]
-fn whoami() -> String {
-    (&"a nonce").to_string()
+fn whoami() -> &'static str {
+    "a nonce"
 }
 
 #[cfg(test)] mod test;
