@@ -49,3 +49,13 @@ fn get_message() {
     assert_eq!(response.status(), Status::Ok);
     assert_eq!(response.into_string().unwrap(), message);
 }
+
+#[test]
+fn who() {
+    let client = Client::tracked(rocket()).expect("valid rocket instance");
+    let response = client
+        .get("/whoami")
+        .dispatch();
+    assert_eq!(response.status(), Status::Ok);
+    assert_eq!(response.into_string().unwrap(), (&"a nonce").to_string());
+}
