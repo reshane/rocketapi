@@ -3,7 +3,7 @@ use rocket::serde::{Deserialize, json::Json};
 use rocket::Rocket;
 use rocket::Build;
 
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use rocket::fs::NamedFile;
 
 mod edit_dist;
@@ -24,9 +24,9 @@ fn edit_dist_from_json(phrases: Json<PhrasePair>) -> String {
     format!("{}", edit_dist(&phrases.phrase1, &phrases.phrase2))
 }
 
-#[get("/<file..>")]
-async fn files(file: PathBuf) -> Option<NamedFile> {
-    NamedFile::open(Path::new("static/").join(file)).await.ok()
+#[get("/csgodata")]
+async fn files() -> Option<NamedFile> {
+    NamedFile::open(Path::new("static/files/csgo_round_snapshots.csv")).await.ok()
 }
 
 #[get("/wait/<seconds>")]
@@ -45,9 +45,14 @@ fn echo(message: String) -> String {
     message
 }
 
+#[get("/index.js")]
+async fn script() -> Option<NamedFile> {
+    NamedFile::open(Path::new("static/site/index.js")).await.ok()
+}
+
 #[get("/")]
 async fn root() -> Option<NamedFile> {
-    NamedFile::open(Path::new("static/index.html")).await.ok()
+    NamedFile::open(Path::new("static/site/index.html")).await.ok()
 }
 
 #[get("/whoami")]
@@ -60,7 +65,6 @@ fn whoami() -> &'static str {
 #[launch]
 fn rocket() -> Rocket<Build> {
     rocket::build()
-        .mount("/files", routes![])
-        .mount("/", routes![whoami, files, wait, root, echo, get_edit_dist, edit_dist_from_json])
+        .mount("/", routes![script, whoami, files, wait, root, echo, get_edit_dist, edit_dist_from_json])
 }
 

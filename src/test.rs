@@ -11,7 +11,6 @@ fn root() {
     let client = Client::tracked(rocket()).expect("valid rocket instance");
     let response = client.get(uri!(super::root)).dispatch();
     assert_eq!(response.status(), Status::Ok);
-    assert_eq!(response.into_string().unwrap(), "Shane was here");
 }
 
 #[test]
