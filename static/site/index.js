@@ -21,8 +21,8 @@ function submitButtonClick() {
 }
 
 function submitButtonClick1() {
-    const input = document.getElementById("query-text").value;
-    document.getElementById("query-text").value = "";
+    const input = document.getElementById("phrase1").value;
+    document.getElementById("phrase1").value = "";
     if (input === "shane is cool") {
         fetch(url, {
             method: 'GET'
