@@ -46,8 +46,8 @@ fn echo(message: String) -> String {
 }
 
 #[get("/")]
-fn root() -> &'static str {
-    "Shane was here"
+async fn root() -> Option<NamedFile> {
+    NamedFile::open(Path::new("static/index.html")).await.ok()
 }
 
 #[get("/whoami")]
@@ -60,7 +60,7 @@ fn whoami() -> &'static str {
 #[launch]
 fn rocket() -> Rocket<Build> {
     rocket::build()
-        .mount("/files", routes![files])
-        .mount("/", routes![whoami, wait, root, echo, get_edit_dist, edit_dist_from_json])
+        .mount("/files", routes![])
+        .mount("/", routes![whoami, files, wait, root, echo, get_edit_dist, edit_dist_from_json])
 }
 
