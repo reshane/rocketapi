@@ -1,16 +1,30 @@
 <html>
 <head>
     <title>Shane</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <label for="phrase1">Phrase1: </label><br>
-    <input type="text" id="phrase1" name="phrase1"><br>
-    <label for="phrase2">Phrase2: </label><br>
-    <input type="text" id="phrase2" name="phrase2"><br>
-    <button type="button" id="submit-query-button" onclick="submitButtonClick()">
-        Submit
-    </button><br>
-    <p class="dist"></p>
+<div class="edit-dist">
+    <div class="phraseblock">
+        <div class="phrase">
+            <label for="phrase1">Phrase1: </label>
+            <input type="text" class="phrase1" id="phrase1" name="phrase1">
+        </div>
+        <div class="phrase">
+            <label for="phrase2">Phrase2: </label>
+            <input type="text" class="phrase" id="phrase2" name="phrase2">
+        </div>
+    </div>
+    <div class="ioblock">
+        <button type="button" class="submit-query-button" id="submit-query-button" onclick="submitButtonClick()">
+            Submit
+        </button>
+        <result>
+            Result: 
+        <span class="dist"></span>
+        </result>
+        </div>
+    </div>
     <script src="index.js"></script>
 </body>
 </html>
