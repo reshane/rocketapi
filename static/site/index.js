@@ -1,5 +1,5 @@
 
-const url = "csgodata";
+const url = "/file/csgo_round_snapshots.csv";
 const data = {
     "query": "shane was here"
 };
@@ -7,8 +7,6 @@ const data = {
 function submitButtonClick() {
     const phrase1 = document.querySelector("input[name='phrase1']").value;
     const phrase2 = document.querySelector("input[name='phrase2']").value;
-    console.log(phrase1);
-    console.log(phrase2);
     let data = {
         "phrase1": phrase1,
         "phrase2": phrase2
@@ -34,3 +32,4 @@ function submitButtonClick1() {
         });
     }
 }
+
