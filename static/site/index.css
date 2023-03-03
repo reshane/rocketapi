@@ -26,6 +26,11 @@ result {
     display: flex;
     justify-content: left;
     color: #211A1D;
+    padding: 1px;
+}
+
+span {
+    padding-left: 6px;
 }
 
 .phraseblock {
